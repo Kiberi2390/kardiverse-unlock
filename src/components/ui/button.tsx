@@ -18,6 +18,12 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        // Kardiverse variants
+        cyber: "bg-gradient-primary text-primary-foreground shadow-glow hover:shadow-lg hover:scale-[1.02] transition-all duration-300",
+        glass: "glass text-foreground hover:bg-white/10 border border-white/20",
+        unlock: "bg-success text-success-foreground shadow-glow hover:bg-success/90 hover:shadow-lg",
+        locked: "bg-gradient-locked text-muted-foreground border border-border cursor-not-allowed opacity-60",
+        scanner: "bg-accent text-accent-foreground shadow-glow hover:bg-accent/90 hover:scale-[1.02] transition-all duration-300"
       },
       size: {
         default: "h-10 px-4 py-2",
