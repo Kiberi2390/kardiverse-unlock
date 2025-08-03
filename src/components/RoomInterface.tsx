@@ -26,21 +26,9 @@ export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
           subtitle: 'AI PRAYER',
           mainText: 'Grant him eternal rest, O Lord.',
           buttonText: 'PLAY PRAYER',
-          background: 'bg-gradient-to-b from-amber-900/20 via-orange-800/30 to-amber-900/40',
+          backgroundImage: '/lovable-uploads/b2d2ec80-7922-47a4-9710-00e811a6277a.png',
           icon: '✝',
-          extraElement: (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative">
-                {/* Church altar scene */}
-                <div className="w-80 h-48 bg-gradient-to-t from-amber-800/40 to-transparent rounded-lg relative overflow-hidden">
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-16 bg-amber-600/80 rounded-full"></div>
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-12 w-8 h-1 bg-amber-600/60 rounded-full"></div>
-                  <div className="absolute bottom-4 left-1/3 w-2 h-8 bg-amber-500/40 rounded-full animate-pulse"></div>
-                  <div className="absolute bottom-4 right-1/3 w-2 h-8 bg-amber-500/40 rounded-full animate-pulse"></div>
-                </div>
-              </div>
-            </div>
-          )
+          extraElement: null
         };
       case 'zang':
         return {
@@ -48,22 +36,15 @@ export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
           subtitle: 'AI Song Playing: "You Did It"',
           mainText: 'Kardiverse AI Choir',
           buttonText: 'PLAY SONG',
-          background: 'bg-gradient-to-b from-stone-600/20 via-amber-700/20 to-stone-800/30',
+          backgroundImage: '/lovable-uploads/46b42a7e-aa3b-4080-a6b0-499e3ba517d7.png',
           icon: '♪',
           extraElement: (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative">
-                {/* Church interior with cross */}
-                <div className="w-80 h-48 bg-gradient-to-t from-amber-700/30 to-transparent rounded-lg relative overflow-hidden">
-                  <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-2 h-12 bg-amber-400/80 rounded-full"></div>
-                  <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-8 h-2 bg-amber-400/80 rounded-full"></div>
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-8 bg-amber-800/60 rounded-t-lg"></div>
-                  {/* Floating music notes */}
-                  <div className="absolute top-16 left-8 text-white/60 animate-bounce">♪</div>
-                  <div className="absolute top-24 right-12 text-white/60 animate-bounce delay-300">♫</div>
-                  <div className="absolute top-20 right-8 text-white/60 animate-bounce delay-700">♪</div>
-                </div>
-              </div>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              {/* Floating music notes */}
+              <div className="absolute top-20 left-12 text-white/80 animate-bounce text-2xl">♪</div>
+              <div className="absolute top-32 right-16 text-white/80 animate-bounce delay-300 text-xl">♫</div>
+              <div className="absolute top-28 right-24 text-white/80 animate-bounce delay-700 text-lg">♪</div>
+              <div className="absolute bottom-32 left-20 text-white/60 animate-bounce delay-1000 text-xl">♫</div>
             </div>
           )
         };
@@ -73,26 +54,17 @@ export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
           subtitle: 'AI Projection Playing',
           mainText: '',
           buttonText: 'PLAY BEAMERROOM',
-          background: 'bg-gradient-to-b from-slate-800/30 via-blue-900/20 to-slate-900/40',
+          backgroundImage: '/lovable-uploads/6537270b-b0c9-4f4c-9427-e1097cbe59c7.png',
           icon: '📽',
           extraElement: (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative">
-                {/* Projection screen and beamer */}
-                <div className="w-80 h-48 bg-gradient-to-b from-blue-200/20 to-amber-300/30 rounded-lg relative overflow-hidden border-4 border-slate-600/40">
-                  {/* Cross on screen */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="w-2 h-16 bg-amber-600/80 rounded-full"></div>
-                    <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-10 h-2 bg-amber-600/80 rounded-full"></div>
-                  </div>
-                  {/* Mountain landscape */}
-                  <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-amber-700/40 via-amber-600/30 to-transparent"></div>
-                </div>
-                {/* Beamer device */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-slate-600 rounded-md"></div>
-                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              {/* Beamer device */}
+              <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
+                <div className="w-20 h-8 bg-slate-800/80 rounded-md shadow-lg border border-slate-600"></div>
+                <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-blue-400 rounded-full animate-pulse shadow-lg shadow-blue-400/50"></div>
                 {/* Projection light beam */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-1 h-32 bg-gradient-to-t from-blue-400/60 to-transparent opacity-70"></div>
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-2 h-40 bg-gradient-to-t from-blue-400/60 via-blue-300/40 to-transparent opacity-70 blur-sm"></div>
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-1 h-40 bg-gradient-to-t from-blue-400/80 via-blue-300/60 to-transparent"></div>
               </div>
             </div>
           )
@@ -116,7 +88,14 @@ export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background */}
-      <div className={`absolute inset-0 ${experience.background}`} />
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('${experience.backgroundImage}')`,
+          filter: 'brightness(0.4) contrast(1.1)'
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40" />
       
       {/* Back button */}
       <div className="absolute top-4 left-4 z-20">
