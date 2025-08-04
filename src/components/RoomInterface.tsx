@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { RoomConfig, RoomComponent } from '@/types/template';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,6 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Settings, Activity, Monitor, ArrowLeft, Music, Play, Volume2 } from 'lucide-react';
 import { AudioPlayer } from '@/components/AudioPlayer';
-import { WakeSongGenerator } from '@/components/WakeSongGenerator';
 
 interface RoomInterfaceProps {
   room: RoomConfig;
@@ -14,7 +12,6 @@ interface RoomInterfaceProps {
 }
 
 export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
-  const [customAudioUrl, setCustomAudioUrl] = useState<string | null>(null);
   const generateToken = () => {
     const prefix = room.type.toUpperCase();
     const year = new Date().getFullYear();
@@ -140,27 +137,17 @@ export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
         )}
 
         {/* Audio Player for ZangRoom */}
-        {room.type === 'zang' && (
-          <div className="mb-8 w-full max-w-md space-y-4">
-            {/* Wake Song Generator */}
-            <WakeSongGenerator 
-              onSongGenerated={(audioUrl) => setCustomAudioUrl(audioUrl)}
+        {room.type === 'zang' && room.audio ? (
+          <div className="mb-16 w-full max-w-md">
+            <AudioPlayer
+              audioUrl={room.audio.url}
+              trackTitle={room.audio.title}
+              autoPlay={false}
+              className="w-full"
             />
-            
-            {/* Audio Player */}
-            {(customAudioUrl || room.audio) && (
-              <AudioPlayer
-                audioUrl={customAudioUrl || room.audio?.url || ''}
-                trackTitle={customAudioUrl ? 'AI Generated Wake Song' : room.audio?.title || 'Unknown Track'}
-                autoPlay={false}
-                className="w-full"
-              />
-            )}
           </div>
-        )}
-
-        {/* Main action button for other rooms */}
-        {room.type !== 'zang' && (
+        ) : (
+          /* Main action button for other rooms */
           <Button 
             size="lg" 
             className="mb-16 px-12 py-6 text-lg font-bold bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-900 hover:from-amber-300 hover:to-yellow-300 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
