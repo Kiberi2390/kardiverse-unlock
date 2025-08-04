@@ -30,6 +30,11 @@ export interface RoomConfig {
   description: string;
   settings: Record<string, any>;
   components: RoomComponent[];
+  audio?: {
+    url: string;
+    title: string;
+    isLocal?: boolean;
+  };
 }
 
 export interface RoomComponent {

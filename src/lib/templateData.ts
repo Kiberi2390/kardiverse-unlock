@@ -49,19 +49,40 @@ export const generateTemplate = (id: number): Template => {
     id: `${templateId}_zang`,
     name: 'ZangRoom',
     type: 'zang',
-    description: 'Zang protocol communication hub',
+    description: 'AI-powered harmonic resonance chamber for spiritual elevation',
     settings: {
-      protocol: 'ZANGv2',
-      encryption: true,
-      compression: 'auto',
-      bufferSize: 1024
+      harmonicFrequency: 432,
+      resonanceDepth: 'deep',
+      aiModel: 'kardiverse-chorus-v2'
+    },
+    audio: {
+      url: id <= 5 
+        ? 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        : `https://kardiverse.com/audio/template_${id.toString().padStart(3, '0')}/zang_music.mp3`,
+      title: `Kardiverse AI Choir - Template ${id.toString().padStart(3, '0')}`,
+      isLocal: false
     },
     components: [
       {
-        id: 'zang_processor',
-        type: 'processor',
-        name: 'Zang Processor',
-        config: { threads: 4, priority: 'realtime' },
+        id: 'zang-audio',
+        type: 'audio-player',
+        name: 'Harmonic Audio System',
+        config: {
+          format: 'spatial-audio',
+          channels: 7.1,
+          bitrate: 'lossless'
+        },
+        position: { x: 0, y: 0, width: 100, height: 30 }
+      },
+      {
+        id: 'zang-visual',
+        type: 'frequency-visualizer',
+        name: 'Harmonic Frequency Display',
+        config: {
+          style: 'waveform',
+          sensitivity: 'high',
+          colorScheme: 'spiritual'
+        },
         position: { x: 0, y: 30, width: 100, height: 40 }
       }
     ]
