@@ -46,13 +46,16 @@ export const AudioPlayer = ({
       setIsPlaying(false);
     };
 
-    const handleError = () => {
-      setError("Failed to load audio");
+    const handleError = (e: Event) => {
+      console.error('Audio failed to load:', audioUrl, e);
+      setError("Failed to load audio file");
       setIsLoading(false);
     };
 
     const handleCanPlay = () => {
+      console.log('Audio can play:', audioUrl);
       setError(null);
+      setIsLoading(false);
     };
 
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
