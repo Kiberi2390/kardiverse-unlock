@@ -56,10 +56,14 @@ export const generateTemplate = (id: number): Template => {
       aiModel: 'kardiverse-chorus-v2'
     },
     audio: {
-      url: id <= 5 
+      url: id === 1 
+        ? 'https://audio.com/leann-cardenas/audio/dean-lewis-how-do-i-say-goodbye-lyrics'
+        : id <= 5 
         ? 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
         : `https://kardiverse.com/audio/template_${id.toString().padStart(3, '0')}/zang_music.mp3`,
-      title: `Kardiverse AI Choir - Template ${id.toString().padStart(3, '0')}`,
+      title: id === 1 
+        ? 'Dean Lewis - How Do I Say Goodbye'
+        : `Kardiverse AI Choir - Template ${id.toString().padStart(3, '0')}`,
       isLocal: false
     },
     components: [
