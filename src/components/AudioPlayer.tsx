@@ -143,6 +143,7 @@ export const AudioPlayer = ({
           ref={audioRef}
           src={audioUrl}
           preload="metadata"
+          crossOrigin="anonymous"
         />
 
         {/* Track title */}

@@ -57,12 +57,12 @@ export const generateTemplate = (id: number): Template => {
     },
     audio: {
       url: id === 1 
-        ? 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        ? 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav'
         : id <= 5 
-        ? 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        ? 'https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav'
         : `https://kardiverse.com/audio/template_${id.toString().padStart(3, '0')}/zang_music.mp3`,
       title: id === 1 
-        ? 'How Do I Say Goodbye - Demo Audio'
+        ? 'How Do I Say Goodbye - Sample Audio'
         : `Kardiverse AI Choir - Template ${id.toString().padStart(3, '0')}`,
       isLocal: false
     },
