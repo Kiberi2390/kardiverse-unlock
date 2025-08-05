@@ -186,4 +186,89 @@ All colors MUST be HSL.
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
+
+  /* Powerful Audio Player Styles */
+  .powerful-audio-player .rhap_container {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    box-shadow: none !important;
+  }
+  
+  .powerful-audio-player .rhap_main-controls-button {
+    color: #1f2937 !important;
+    font-size: 24px !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 8px !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+  }
+  
+  .powerful-audio-player .rhap_main-controls-button:hover {
+    transform: scale(1.05) !important;
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  }
+  
+  .powerful-audio-player .rhap_progress-container {
+    margin: 8px 0 !important;
+  }
+  
+  .powerful-audio-player .rhap_progress-bar {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 4px !important;
+    height: 6px !important;
+  }
+  
+  .powerful-audio-player .rhap_progress-filled {
+    background: linear-gradient(90deg, #fbbf24, #f59e0b) !important;
+    border-radius: 4px !important;
+  }
+  
+  .powerful-audio-player .rhap_progress-indicator {
+    background: #ffffff !important;
+    border: 2px solid #fbbf24 !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+  
+  .powerful-audio-player .rhap_time {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 14px !important;
+  }
+  
+  .powerful-audio-player .rhap_volume-container {
+    margin-left: 12px !important;
+  }
+  
+  .powerful-audio-player .rhap_volume-button {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 20px !important;
+  }
+  
+  .powerful-audio-player .rhap_volume-bar {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 4px !important;
+  }
+  
+  .powerful-audio-player .rhap_volume-indicator {
+    background: #fbbf24 !important;
+    border-radius: 4px !important;
+  }
+  
+  .powerful-audio-player .rhap_download-progress {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 4px !important;
+  }
+
+  .powerful-audio-player .rhap_controls-section {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
 }

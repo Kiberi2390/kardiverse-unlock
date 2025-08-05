@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Settings, Activity, Monitor, ArrowLeft, Music, Play, Volume2 } from 'lucide-react';
 import { AudioPlayer } from '@/components/AudioPlayer';
+import { PowerfulAudioPlayer } from '@/components/PowerfulAudioPlayer';
 import { LocalAudioPicker } from '@/components/LocalAudioPicker';
 import { useState } from 'react';
 
@@ -182,7 +183,7 @@ export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
                     <p className="text-sm text-white/80 text-center">
                       Playing: {room.audio.title}
                     </p>
-                    <AudioPlayer
+                    <PowerfulAudioPlayer
                       audioUrl={room.audio.url}
                       trackTitle={room.audio.title}
                       autoPlay={false}

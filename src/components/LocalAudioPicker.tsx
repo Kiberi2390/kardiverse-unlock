@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Upload, Music, X } from 'lucide-react';
-import { AudioPlayer } from '@/components/AudioPlayer';
+import { PowerfulAudioPlayer } from '@/components/PowerfulAudioPlayer';
 
 interface LocalAudioPickerProps {
   onAudioSelected?: (file: File, audioUrl: string) => void;
@@ -122,7 +122,7 @@ export const LocalAudioPicker = ({ onAudioSelected, className }: LocalAudioPicke
             {/* Audio player section */}
             {audioUrl && selectedFile && (
               <div className="pt-4 border-t border-white/20">
-                <AudioPlayer
+                <PowerfulAudioPlayer
                   audioUrl={audioUrl}
                   trackTitle={selectedFile.name.replace(/\.[^/.]+$/, "")}
                   autoPlay={false}
