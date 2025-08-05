@@ -30,11 +30,24 @@ export const AudioPlayer = ({
     const audio = audioRef.current;
     if (!audio) return;
 
+    // Reset states when audioUrl changes
+    setIsLoading(true);
+    setError(null);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+
     const handleLoadedMetadata = () => {
+      console.log('Audio metadata loaded:', audioUrl);
       setDuration(audio.duration);
       setIsLoading(false);
       if (autoPlay) {
-        audio.play().catch(() => setError("Failed to autoplay audio"));
+        audio.play()
+          .then(() => setIsPlaying(true))
+          .catch((err) => {
+            console.error('Autoplay failed:', err);
+            setError("Autoplay blocked by browser");
+          });
       }
     };
 
@@ -44,11 +57,33 @@ export const AudioPlayer = ({
 
     const handleEnded = () => {
       setIsPlaying(false);
+      setCurrentTime(0);
     };
 
     const handleError = (e: Event) => {
-      console.error('Audio failed to load:', audioUrl, e);
-      setError("Failed to load audio file");
+      console.error('Audio error:', e);
+      const audioElement = e.target as HTMLAudioElement;
+      const errorCode = audioElement.error?.code;
+      let errorMessage = "Failed to load audio file";
+      
+      switch (errorCode) {
+        case MediaError.MEDIA_ERR_ABORTED:
+          errorMessage = "Audio loading was aborted";
+          break;
+        case MediaError.MEDIA_ERR_NETWORK:
+          errorMessage = "Network error while loading audio";
+          break;
+        case MediaError.MEDIA_ERR_DECODE:
+          errorMessage = "Audio format not supported or corrupted";
+          break;
+        case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+          errorMessage = "Audio format not supported by browser";
+          break;
+        default:
+          errorMessage = "Unknown audio error occurred";
+      }
+      
+      setError(errorMessage);
       setIsLoading(false);
     };
 
@@ -58,18 +93,41 @@ export const AudioPlayer = ({
       setIsLoading(false);
     };
 
+    const handleLoadStart = () => {
+      console.log('Audio load started:', audioUrl);
+      setIsLoading(true);
+    };
+
+    const handleWaiting = () => {
+      console.log('Audio waiting for data');
+    };
+
+    const handleCanPlayThrough = () => {
+      console.log('Audio can play through');
+      setIsLoading(false);
+    };
+
+    audio.addEventListener('loadstart', handleLoadStart);
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('ended', handleEnded);
     audio.addEventListener('error', handleError);
     audio.addEventListener('canplay', handleCanPlay);
+    audio.addEventListener('waiting', handleWaiting);
+    audio.addEventListener('canplaythrough', handleCanPlayThrough);
+
+    // Force load the audio
+    audio.load();
 
     return () => {
+      audio.removeEventListener('loadstart', handleLoadStart);
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
       audio.removeEventListener('timeupdate', handleTimeUpdate);
       audio.removeEventListener('ended', handleEnded);
       audio.removeEventListener('error', handleError);
       audio.removeEventListener('canplay', handleCanPlay);
+      audio.removeEventListener('waiting', handleWaiting);
+      audio.removeEventListener('canplaythrough', handleCanPlayThrough);
     };
   }, [audioUrl, autoPlay]);
 
@@ -143,7 +201,6 @@ export const AudioPlayer = ({
           ref={audioRef}
           src={audioUrl}
           preload="metadata"
-          crossOrigin="anonymous"
         />
 
         {/* Track title */}

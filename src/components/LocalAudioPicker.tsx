@@ -21,21 +21,34 @@ export const LocalAudioPicker = ({ onAudioSelected, className }: LocalAudioPicke
     
     if (!file) return;
 
-    // Validate file type
-    if (!file.type.startsWith('audio/')) {
-      setError('Please select a valid audio file (MP3, WAV, etc.)');
+    // More comprehensive audio format validation
+    const audioFormats = [
+      'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/wave', 'audio/x-wav',
+      'audio/ogg', 'audio/mp4', 'audio/m4a', 'audio/aac', 'audio/webm',
+      'audio/flac', 'audio/x-flac', 'audio/x-m4a'
+    ];
+    
+    const isAudioFile = audioFormats.includes(file.type) || 
+                       file.name.match(/\.(mp3|wav|ogg|m4a|aac|flac|wma)$/i);
+
+    if (!isAudioFile) {
+      setError('Please select a valid audio file (MP3, WAV, OGG, M4A, AAC, FLAC)');
       return;
     }
 
-    // Validate file size (max 50MB)
-    const maxSize = 50 * 1024 * 1024; // 50MB
+    // Validate file size (max 100MB for better compatibility)
+    const maxSize = 100 * 1024 * 1024; // 100MB
     if (file.size > maxSize) {
-      setError('File size must be less than 50MB');
+      setError('File size must be less than 100MB');
       return;
     }
+
+    console.log('Selected audio file:', file.name, file.type, `${(file.size / 1024 / 1024).toFixed(1)}MB`);
 
     // Create object URL for the audio file
     const url = URL.createObjectURL(file);
+    console.log('Created blob URL:', url);
+    
     setSelectedFile(file);
     setAudioUrl(url);
     onAudioSelected?.(file, url);
@@ -125,7 +138,7 @@ export const LocalAudioPicker = ({ onAudioSelected, className }: LocalAudioPicke
       <input
         ref={fileInputRef}
         type="file"
-        accept="audio/*"
+        accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.flac,.wma"
         onChange={handleFileSelect}
         className="hidden"
       />
