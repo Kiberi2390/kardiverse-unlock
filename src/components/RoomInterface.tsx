@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Settings, Activity, Monitor, ArrowLeft, Music, Play, Volume2 } from 'lucide-react';
 import { AudioPlayer } from '@/components/AudioPlayer';
+import { LocalAudioPicker } from '@/components/LocalAudioPicker';
+import { useState } from 'react';
 
 interface RoomInterfaceProps {
   room: RoomConfig;
@@ -12,11 +14,30 @@ interface RoomInterfaceProps {
 }
 
 export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
+  const [localAudio, setLocalAudio] = useState<{ file: File; url: string; title: string } | null>(null);
+  const [activeAudioSource, setActiveAudioSource] = useState<'default' | 'local'>('default');
+
   const generateToken = () => {
     const prefix = room.type.toUpperCase();
     const year = new Date().getFullYear();
     const random = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
     return `#${prefix}${year}`;
+  };
+
+  const handleLocalAudioSelected = (file: File, url: string) => {
+    const title = file.name.replace(/\.[^/.]+$/, "");
+    setLocalAudio({ file, url, title });
+    setActiveAudioSource('local');
+  };
+
+  const handleSwitchToDefault = () => {
+    setActiveAudioSource('default');
+  };
+
+  const handleSwitchToLocal = () => {
+    if (localAudio) {
+      setActiveAudioSource('local');
+    }
   };
 
   const getRoomExperience = () => {
@@ -136,15 +157,48 @@ export const RoomInterface = ({ room, onBack }: RoomInterfaceProps) => {
           </p>
         )}
 
-        {/* Audio Player for ZangRoom */}
-        {room.type === 'zang' && room.audio ? (
-          <div className="mb-16 w-full max-w-md">
-            <AudioPlayer
-              audioUrl={room.audio.url}
-              trackTitle={room.audio.title}
-              autoPlay={false}
-              className="w-full"
-            />
+        {/* Audio interface for ZangRoom */}
+        {room.type === 'zang' ? (
+          <div className="mb-16 w-full max-w-lg">
+            <Tabs defaultValue="default" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 bg-black/30 border border-white/20">
+                <TabsTrigger 
+                  value="default" 
+                  className="text-white data-[state=active]:bg-white/20 data-[state=active]:text-white"
+                >
+                  Default Song
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="local" 
+                  className="text-white data-[state=active]:bg-white/20 data-[state=active]:text-white"
+                >
+                  Load Your Song
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="default" className="mt-4">
+                {room.audio && (
+                  <div className="space-y-3">
+                    <p className="text-sm text-white/80 text-center">
+                      Playing: {room.audio.title}
+                    </p>
+                    <AudioPlayer
+                      audioUrl={room.audio.url}
+                      trackTitle={room.audio.title}
+                      autoPlay={false}
+                      className="w-full"
+                    />
+                  </div>
+                )}
+              </TabsContent>
+              
+              <TabsContent value="local" className="mt-4">
+                <LocalAudioPicker
+                  onAudioSelected={handleLocalAudioSelected}
+                  className="w-full"
+                />
+              </TabsContent>
+            </Tabs>
           </div>
         ) : (
           /* Main action button for other rooms */
