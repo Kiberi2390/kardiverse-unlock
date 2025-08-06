@@ -21,15 +21,32 @@ export const LocalAudioPicker = ({ onAudioSelected, className }: LocalAudioPicke
     
     if (!file) return;
 
-    // More comprehensive audio format validation
+    // Comprehensive audio format validation with mobile browser MIME variations
     const audioFormats = [
-      'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/wave', 'audio/x-wav',
-      'audio/ogg', 'audio/mp4', 'audio/m4a', 'audio/aac', 'audio/webm',
-      'audio/flac', 'audio/x-flac', 'audio/x-m4a'
+      // MP3 formats
+      'audio/mpeg', 'audio/mp3', 'audio/mpeg3', 'audio/x-mpeg-3',
+      // WAV formats
+      'audio/wav', 'audio/wave', 'audio/x-wav', 'audio/x-pn-wav',
+      // OGG formats
+      'audio/ogg', 'audio/x-ogg', 'audio/ogg; codecs=vorbis',
+      // M4A/AAC formats (mobile variations)
+      'audio/mp4', 'audio/m4a', 'audio/x-m4a', 'audio/mp4a-latm',
+      'audio/aac', 'audio/x-aac', 'audio/aacp',
+      // FLAC formats
+      'audio/flac', 'audio/x-flac',
+      // WebM audio
+      'audio/webm',
+      // Other common formats
+      'audio/3gpp', 'audio/3gpp2', // Mobile recording formats
+      'audio/amr', 'audio/amr-wb', // Mobile formats
+      'application/ogg' // Some browsers report OGG as application
     ];
     
-    const isAudioFile = audioFormats.includes(file.type) || 
-                       file.name.match(/\.(mp3|wav|ogg|m4a|aac|flac|wma)$/i);
+    // Check both MIME type and file extension for maximum compatibility
+    const mimeTypeValid = audioFormats.includes(file.type);
+    const extensionValid = file.name.match(/\.(mp3|wav|ogg|m4a|aac|flac|wma|3gp|amr)$/i);
+    
+    const isAudioFile = mimeTypeValid || extensionValid;
 
     if (!isAudioFile) {
       setError('Please select a valid audio file (MP3, WAV, OGG, M4A, AAC, FLAC)');
